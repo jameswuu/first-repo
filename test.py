@@ -1,7 +1,7 @@
-""""
+"""
 The purpose of this file is to familize myself with the git environmnet
 Features such as pull, push, commit were practiced using this file
-""""
+"""
 
 # This comment has been added 
 print("Hello World!")
