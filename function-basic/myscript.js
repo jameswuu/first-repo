@@ -21,3 +21,10 @@ function capitalize(word) {
         return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
     }
 }
+
+
+// Write a function takes a string and returns the last letter of the string
+function lastLetter(word) {
+    let index = word.length - 1;
+    return word.charAt(index);
+}
