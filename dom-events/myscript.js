@@ -1,4 +1,10 @@
+// Initilize a function
+function alertFunction() {
+    alert("Hello there!")
+}
+
+// Create an element to select button
 const btn = document.querySelector("#btn");
-btn.addEventListener("click", () => {
-    alert('Hello bro!')
-});
+
+// Call function
+btn.addEventListener("click", alertFunction);
