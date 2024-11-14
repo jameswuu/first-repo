@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping list example</title>
-    <script src="myscript.js"></script>
+    <script src="myscript.js" defer></script>
     <style>
       li {
         margin-bottom: 10px;
@@ -24,10 +24,10 @@
     <div>
       <label for="item">Enter a new item:</label>
       <input type="text" name="item" id="item">
-      <button>Add item</button>
+      <button id="btn">Add item</button>
     </div>
 
-    <ul>
+    <ul id="lists">
 
     </ul>
   </body>
