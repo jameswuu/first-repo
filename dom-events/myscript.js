@@ -3,8 +3,15 @@ function alertFunction() {
     alert("Hello there!")
 }
 
-// Create an element to select button
-const btn = document.querySelector("#btn");
+// Create element to select button
+const buttons = document.querySelectorAll("button");
 
-// Call function
-btn.addEventListener("click", alertFunction);
+
+// .forEach method to iterate through each button
+buttons.forEach((button)=> {
+    // Add eventListenser
+    button.addEventListener("click", () => {
+        alert(`This Id for the button is ${button.id}`);
+    })
+})
+
