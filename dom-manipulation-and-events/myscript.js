@@ -29,3 +29,23 @@ header_3.style.color = "blue";
 header_3.textContent = "I am a blue h3";
 // Append to the container
 container.insertBefore(header_3, paragraph);
+
+
+// Example 3:
+// black border and pink bg 
+const box = document.createElement("div");
+box.style.border = "solid";
+box.style.background = "pink";
+
+// Create additional element: <h1> and <p>
+const header_1 = document.createElement("h1");
+header_1.textContent = "I'm in a div";
+const reply = document.createElement("p");
+reply.textContent = "ME TOO!"
+
+// Append to box
+box.appendChild(header_1);
+box.appendChild(reply);
+
+// Append box to container
+container.appendChild(box);
