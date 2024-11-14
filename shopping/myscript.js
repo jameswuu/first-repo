@@ -31,16 +31,10 @@ btn.addEventListener("click", () => {
     // Append list to the ul
     ul.appendChild(li);
 
-    counter++;
-})
-
-// Delete list item
-const del = document.querySelectorAll("button")
-del.forEach((button) => {
-    // Add event listener
+    // Delete list item
     button.addEventListener("click", () => {
-        let id = list.value
-        let child = document.querySelector.(id);
-        ul.removeChild(child);
+        ul.removeChild(li);
     })
+
+    counter++;
 })
