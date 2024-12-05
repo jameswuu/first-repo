@@ -45,4 +45,10 @@ class Worker extends Person{
     setJob (job) {
         this.job = job;
     }
+
+    get biography() {
+        // "Get" can avoid adding () when invoking the method
+        const bio = `${this.fullname()} is a ${this.job}`.toUpperCase();
+        return bio;
+    }
 }
