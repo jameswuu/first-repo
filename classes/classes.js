@@ -28,6 +28,13 @@ class Person{
         this.lastName = lastName;
     }
 
+    // Add a set property to reset the name
+    set setFullName(name) {
+        name = name.split(' ');
+        this.setFirstName(name[0]);
+        this.setLastName(name[1]);
+    }
+
     jobStatus(){
         return this.hasJob = !this.hasJob;
     }
