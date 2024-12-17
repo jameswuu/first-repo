@@ -2,21 +2,37 @@
 // Using JS and HTML, write a countdown timer with the ability to set 
 // custom countdown duration, pause / resume the timer, and reset the timer
 // Bonus: track and display previous results and the timestamp the record was made
-
-let time = document.getElementById('counter').textContent;
+const originalTime = document.getElementById('counter').textContent;
+let currentTime = originalTime;
+let stopper;
 
 function counter(){
-    // Print the current time
-    console.log(`The time is ${time}`);
-
     // Update display
-    document.getElementById('counter').textContent = time--;
+    currentTime--;
+    document.getElementById('counter').textContent = currentTime;
 
-    // Stop the timer 
-    if (time === 0) {        
+    // Times up
+    if (currentTime < 0) {        
         clearInterval(stopper);
+        document.getElementById('counter').textContent = "Time!";
     }
 }
 
-// Run the counter every one second
-const stopper = setInterval(counter, 1000);
+// Reset button
+const resetButton = document.querySelector("#reset");
+resetButton.addEventListener('click', () => {
+    clearInterval(stopper);
+    currentTime = originalTime;
+    document.getElementById('counter').textContent = currentTime;
+})
+
+// Start and Pause Button
+const startPauseButton = document.querySelector("#start");
+startPauseButton.addEventListener('click', () => {
+    if (stopper) {
+        clearInterval(stopper);
+        stopper = null;
+    } else {
+        stopper = setInterval(counter, 1000); // Start the countdown
+    }
+});
