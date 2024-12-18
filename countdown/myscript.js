@@ -2,19 +2,22 @@
 // Using JS and HTML, write a countdown timer with the ability to set 
 // custom countdown duration, pause / resume the timer, and reset the timer
 // Bonus: track and display previous results and the timestamp the record was made
-const originalTime = document.getElementById('counter').textContent;
-let currentTime = originalTime;
+
+
+// Initailize values
+let originalTime;
+let currentTime;
 let stopper;
 
 function counter(){
     // Update display
     currentTime--;
-    document.getElementById('counter').textContent = currentTime;
+    document.getElementById('display').textContent = currentTime;
 
     // Times up
-    if (currentTime < 0) {        
+    if (currentTime === 0) {        
         clearInterval(stopper);
-        document.getElementById('counter').textContent = "Time!";
+        document.getElementById('display').textContent = "Time!";
     }
 }
 
@@ -23,12 +26,28 @@ const resetButton = document.querySelector("#reset");
 resetButton.addEventListener('click', () => {
     clearInterval(stopper);
     currentTime = originalTime;
-    document.getElementById('counter').textContent = currentTime;
+    document.getElementById('display').textContent = currentTime;
+    
+    // Reset the start pause button
+    stopper = null;
 })
 
-// Start and Pause Button
+// Start and Pause button
 const startPauseButton = document.querySelector("#start");
 startPauseButton.addEventListener('click', () => {
+    // To check whether hte counter is null
+    if (!originalTime) {
+        // Assign values
+        originalTime = document.querySelector("#counter").value;
+        currentTime = originalTime;
+
+        // Set the counter
+        document.getElementById('display').textContent = currentTime;
+ 
+
+        // Dubugging Line
+        console.log(`Submit button clicked and the input is ${originalTime}`);
+    } 
     if (stopper) {
         clearInterval(stopper);
         stopper = null;
@@ -36,3 +55,4 @@ startPauseButton.addEventListener('click', () => {
         stopper = setInterval(counter, 1000); // Start the countdown
     }
 });
+
