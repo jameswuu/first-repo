@@ -25,7 +25,8 @@ function counter(){
 const resetButton = document.querySelector("#reset");
 resetButton.addEventListener('click', () => {
     clearInterval(stopper);
-    currentTime = originalTime;
+    originalTime = null;
+    currentTime = null;
     document.getElementById('display').textContent = currentTime;
     
     // Reset the start pause button
@@ -44,7 +45,6 @@ startPauseButton.addEventListener('click', () => {
         // Set the counter
         document.getElementById('display').textContent = currentTime;
  
-
         // Dubugging Line
         console.log(`Submit button clicked and the input is ${originalTime}`);
     } 
@@ -55,4 +55,3 @@ startPauseButton.addEventListener('click', () => {
         stopper = setInterval(counter, 1000); // Start the countdown
     }
 });
-
