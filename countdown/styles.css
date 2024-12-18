@@ -17,9 +17,9 @@ body {
 }
 
 .content .left input {
+    width: 65px;
     padding: 8px;
     border-radius: 5px;
-
 }
 
 .content .right {

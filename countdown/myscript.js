@@ -5,19 +5,32 @@
 
 
 // Initailize values
-let originalTime;
-let currentTime;
+let originalMinutes;
+let originalSeconds;
+let currentMintues;
+let currentSeconds;
 let stopper;
 
 function counter(){
     // Update display
-    currentTime--;
-    document.getElementById('display').textContent = currentTime;
+    currentSeconds--;
 
-    // Times up
-    if (currentTime === 0) {        
-        clearInterval(stopper);
-        document.getElementById('display').textContent = "Time!";
+    // Check for minutes
+    if (currentSeconds === 0) { 
+        if (currentMintues !== 0) {
+            currentMintues--;
+            currentSeconds = 59;
+        } else {
+            // Times up
+            clearInterval(stopper);
+            document.getElementById('display').textContent = "Time!";
+        }
+    }
+
+    if (currentSeconds < 10) {
+        document.getElementById('display').textContent = currentMintues + ":0" + currentSeconds ;
+    } else {
+        document.getElementById('display').textContent = currentMintues + ":" + currentSeconds ;
     }
 }
 
@@ -25,9 +38,11 @@ function counter(){
 const resetButton = document.querySelector("#reset");
 resetButton.addEventListener('click', () => {
     clearInterval(stopper);
-    originalTime = null;
-    currentTime = null;
-    document.getElementById('display').textContent = currentTime;
+    originalMinutes = null;
+    originalSeconds = null;
+    currentMintues = null;
+    currentSeconds = null;
+    document.getElementById('display').textContent = "counter";
     
     // Reset the start pause button
     stopper = null;
@@ -36,17 +51,22 @@ resetButton.addEventListener('click', () => {
 // Start and Pause button
 const startPauseButton = document.querySelector("#start");
 startPauseButton.addEventListener('click', () => {
-    // To check whether hte counter is null
-    if (!originalTime) {
+    // To check whether the counter is null
+    if (!originalSeconds && !originalMinutes) {
         // Assign values
-        originalTime = document.querySelector("#counter").value;
-        currentTime = originalTime;
+        originalMinutes = document.querySelector("#minutes").value;
+        originalSeconds = document.querySelector("#seconds").value;
+        currentMintues = originalMinutes;
+        currentSeconds = originalSeconds;
 
         // Set the counter
-        document.getElementById('display').textContent = currentTime;
- 
+        if (currentSeconds < 10) {
+            document.getElementById('display').textContent = currentMintues + ":0" + currentSeconds ;
+        } else {
+            document.getElementById('display').textContent = currentMintues + ":" + currentSeconds ;
+        } 
         // Dubugging Line
-        console.log(`Submit button clicked and the input is ${originalTime}`);
+        console.log(`The minutes is ${originalMinutes} and the second is ${originalSeconds}`);
     } 
     if (stopper) {
         clearInterval(stopper);
