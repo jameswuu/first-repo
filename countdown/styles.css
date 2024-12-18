@@ -3,7 +3,7 @@ body {
     display: flex;
     flex-direction: column;
     text-align: center;
-    font-family: Georgia, serif;
+    font-family: Arial, Helvetica, sans-serif;
     background-color: #f8f9fa;
     margin: 0;
 }
@@ -14,6 +14,9 @@ body {
     justify-content: center;
     align-items: center;
     gap:20px
+}
+.content .left {
+    font-weight: bold;
 }
 
 .content .left input {
@@ -30,7 +33,7 @@ body {
 
 .content .right button {
     margin: 8px;
-    padding: 10px 20px;
+    padding: 5px 10px;
     font-size: 15px; 
     border-radius: 5px;
     cursor: pointer; 
@@ -42,7 +45,6 @@ body {
 }
 
 .body #display {
-    font-size: 150px;
-    font-weight: bold;
+    font-size: 180px;
     color: #333; 
 }

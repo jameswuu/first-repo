@@ -12,26 +12,28 @@ let currentSeconds;
 let stopper;
 
 function counter(){
-    // Update display
-    currentSeconds--;
-
     // Check for minutes
-    if (currentSeconds === 0) { 
-        if (currentMintues !== 0) {
-            currentMintues--;
-            currentSeconds = 59;
-        } else {
+    if (currentSeconds === 0) {
+        console.log("Code ran")
+        if (currentMintues === 0) {
             // Times up
             clearInterval(stopper);
             document.getElementById('display').textContent = "Time!";
+        } else {
+            currentMintues--;
+            currentSeconds = 60;
         }
     }
+    // Update display
+    currentSeconds--;
+    console.log(`Current seconds after -- is ${currentSeconds}`)
 
     if (currentSeconds < 10) {
         document.getElementById('display').textContent = currentMintues + ":0" + currentSeconds ;
     } else {
         document.getElementById('display').textContent = currentMintues + ":" + currentSeconds ;
     }
+
 }
 
 // Reset button
@@ -54,8 +56,8 @@ startPauseButton.addEventListener('click', () => {
     // To check whether the counter is null
     if (!originalSeconds && !originalMinutes) {
         // Assign values
-        originalMinutes = document.querySelector("#minutes").value;
-        originalSeconds = document.querySelector("#seconds").value;
+        originalMinutes = parseInt(document.querySelector("#minutes").value);
+        originalSeconds = parseInt(document.querySelector("#seconds").value);
         currentMintues = originalMinutes;
         currentSeconds = originalSeconds;
 
