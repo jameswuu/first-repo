@@ -11,6 +11,7 @@ let originalSeconds;
 let currentHours;
 let currentMintues;
 let currentSeconds;
+let previousRow;
 let stopper;
 
 
@@ -40,6 +41,26 @@ startPauseButton.addEventListener('click', () => {
         originalHours = parseInt(document.querySelector("#hours").value)
         originalMinutes = parseInt(document.querySelector("#minutes").value);
         originalSeconds = parseInt(document.querySelector("#seconds").value);
+
+        // Append to the records
+        const table = document.getElementById("timestamp");
+        const newRow = document.createElement("tr");
+        const newData = document.createElement("td");
+        newData.innerHTML = display(originalHours, originalMinutes, originalSeconds);
+        newRow.appendChild(newData);
+
+        // Append at the top of the table
+        if (!previousRow) {
+            console.log("Append child Ran")
+            table.appendChild(newRow);
+        } else {
+            console.log("Insert Before Ran")
+            table.insertBefore(newRow, previousRow);
+        }
+
+        // Update the previous row
+        previousRow = newRow;
+
         currentHours = originalHours;
         currentMintues = originalMinutes;
         currentSeconds = originalSeconds;
@@ -68,8 +89,10 @@ function counter(){
         if (currentMintues === 0) {
             if (currentHours === 0) {
                 // Times up
+                console.log("0: Code ran") // Debugging Line
                 clearInterval(stopper);
-                document.getElementById('display').textContent = "Time!";
+                document.querySelector("#display").textContent = "Time!";
+                return;
             } else {
                 console.log("1: Code ran") // Debugging Line
                 currentHours--;
