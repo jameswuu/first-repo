@@ -1,4 +1,3 @@
-// Tasks
 // Using JS and HTML, write a countdown timer with the ability to set 
 // custom countdown duration, pause / resume the timer, and reset the timer
 // Bonus: track and display previous results and the timestamp the record was made
@@ -15,13 +14,6 @@ let previousRow;
 let stopper;
 
 
-// Clear button
-const resetButton = document.querySelector("#clear");
-resetButton.addEventListener('click', () => {
-    clear();
-})
-
-
 // Start and Pause button
 const startPauseButton = document.querySelector("#start");
 startPauseButton.addEventListener('click', () => {
@@ -32,9 +24,6 @@ startPauseButton.addEventListener('click', () => {
         originalMinutes = parseInt(document.querySelector("#minutes").value);
         originalSeconds = parseInt(document.querySelector("#seconds").value);
         
-        // Debugging Line
-        console.log(`Hours = ${currentHours}; Minutes = ${currentMintues}; Seconds = ${currentSeconds}`)
-
         // Validate the inputs
         if (isNaN(originalHours) || isNaN(originalMinutes) || isNaN(originalSeconds)) {
             alert("Please fill in all the boxes with valid numbers.");
@@ -68,10 +57,12 @@ startPauseButton.addEventListener('click', () => {
 
         // Update the previous row
         previousRow = newRow;
-
         currentHours = originalHours;
         currentMintues = originalMinutes;
         currentSeconds = originalSeconds;
+
+        // Debugging Line
+        console.log(`Hours = ${currentHours}; Minutes = ${currentMintues}; Seconds = ${currentSeconds}`)
 
         // display counter 
         let counter = display(currentHours, currentMintues, currentSeconds);
@@ -85,6 +76,33 @@ startPauseButton.addEventListener('click', () => {
         stopper = setInterval(counter, 1000); // Start the countdown
     }
 });
+
+
+// Reset button
+const resetButton = document.querySelector("#reset")
+resetButton.addEventListener("click", () => {
+    console.log("Reet button clicked") // debugging line 
+     if (currentHours || currentMintues || currentSeconds) {
+        clearInterval(stopper);
+        stopper = null;
+        currentHours = originalHours;
+        currentMintues = originalMinutes;
+        currentSeconds = originalSeconds;
+    
+        // Display the reset countdown
+        let counter = display(currentHours, currentMintues, currentSeconds);
+        document.querySelector("#display").textContent = counter;
+     } else {
+        return;
+     }
+})
+
+
+// Clear button
+const clearButton = document.querySelector("#clear");
+clearButton.addEventListener('click', () => {
+    clear();
+})
 
 
 // Counting function
@@ -120,7 +138,7 @@ function counter(){
 }
 
 
-// displaying function
+// Displaying function
 function display(hours, minutes, seconds) {
     // Check for hours
     let display;
@@ -142,12 +160,14 @@ function display(hours, minutes, seconds) {
     if (seconds < 10) {
         display = display + "0" + seconds;
     } else {
-        display = display  + seconds;
+        display = display + seconds;
     }
 
     return display;
 }
 
+
+// Clear function
 function clear(){
     clearInterval(stopper);
     originalHours = null;
@@ -156,7 +176,12 @@ function clear(){
     currentHours = null;
     currentMintues = null;
     currentSeconds = null;
-    document.getElementById('display').textContent = "00:00:00";
     stopper = null;
+    document.getElementById('hours').value = "";
+    document.getElementById('minutes').value = "";
+    document.getElementById('seconds').value = "";
+    document.getElementById('display').textContent = "00:00:00";
     return;
 }
+
+
