@@ -50,11 +50,17 @@ body {
     background-color: grey;
 }
 
-.content #display {
-    font-size: 180px;
+.counter {
     color: #333; 
+
+}
+.counter #display{
+    font-size: 180px;
 }
 
+.counter #milli-seconds{
+    font-size: 50px;
+}
 
 .records {
     font-size: 15px;

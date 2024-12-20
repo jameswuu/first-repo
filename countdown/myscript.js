@@ -10,6 +10,7 @@ let originalSeconds;
 let currentHours;
 let currentMintues;
 let currentSeconds;
+let currentMilliseconds;
 let previousRow;
 let stopper;
 
@@ -60,13 +61,13 @@ startPauseButton.addEventListener('click', () => {
         currentHours = originalHours;
         currentMintues = originalMinutes;
         currentSeconds = originalSeconds;
+        currentMilliseconds = 0;
 
         // Debugging Line
-        console.log(`Hours = ${currentHours}; Minutes = ${currentMintues}; Seconds = ${currentSeconds}`)
+        console.log(`Hours = ${currentHours}; Minutes = ${currentMintues}; Seconds = ${currentSeconds}; MilliSeconds = ${currentMilliseconds}`)
 
-        // display counter 
-        let counter = display(currentHours, currentMintues, currentSeconds);
-        document.querySelector("#display").textContent = counter;
+        // Call display function 
+        display(currentHours, currentMintues, currentSeconds);
     } 
 
     if (stopper) {
@@ -75,12 +76,12 @@ startPauseButton.addEventListener('click', () => {
         document.querySelector("#start").textContent = "Start";
         document.querySelector("#start").style.background = "rgba(47, 255, 75, 0.8)";
     } else {
-        stopper = setInterval(counter, 1000); // Start the countdown
+        stopper = setInterval(counter, 100); // Start the countdown
         document.querySelector("#start").textContent = "Pause";
         document.querySelector("#start").style.background = "rgba(255, 31, 31, 0.8)";
-
     }
 });
+
 
 
 // Reset button
@@ -95,15 +96,16 @@ resetButton.addEventListener("click", () => {
         currentHours = originalHours;
         currentMintues = originalMinutes;
         currentSeconds = originalSeconds;
+        currentMilliseconds = 0;
     
-        // Display the reset countdown
-        let counter = display(currentHours, currentMintues, currentSeconds);
-        document.querySelector("#display").textContent = counter;
+        // Call display function 
+        display(currentHours, currentMintues, currentSeconds);
      } else {
         return;
      }
 })
 
+    
 
 // Clear button
 const clearButton = document.querySelector("#clear");
@@ -112,37 +114,44 @@ clearButton.addEventListener('click', () => {
 })
 
 
+
 // Counting function
 function counter(){
-    // Check for minutes
-    if (currentSeconds === 0) {
-        if (currentMintues === 0) {
-            if (currentHours === 0) {
-                // Times up
-                console.log("0: Code ran") // Debugging Line
-                clearInterval(stopper);
-                document.querySelector("#display").textContent = "Time!";
-                return;
+    if (currentMilliseconds === 0) {
+        if (currentSeconds === 0) {
+            if (currentMintues === 0) {
+                if (currentHours === 0) {
+                    // Times up
+                    console.log("0: Code ran") // Debugging Line
+                    clearInterval(stopper);
+                    document.querySelector("#display").textContent = "Time!";
+                    return;
+                } else {
+                    console.log("1: Code ran") // Debugging Line
+                    currentHours--;
+                    currentMintues = 59;
+                    currentSeconds = 59;
+                    currentMilliseconds = 100;
+                }
             } else {
-                console.log("1: Code ran") // Debugging Line
-                currentHours--;
-                currentMintues = 59;
-                currentSeconds = 60;
+                console.log("2: Code ran") // Debugging Line
+                currentMintues--;
+                currentSeconds = 59;
+                currentMilliseconds = 100;
             }
         } else {
-            console.log("2: Code ran") // Debugging Line
-            currentMintues--;
-            currentSeconds = 60;
+            currentSeconds--;
+            currentMilliseconds = 100;
         }
-    }
+    }    
 
-    // Update seconds
-    currentSeconds--;
+    // Update milli-seconds
+    currentMilliseconds = currentMilliseconds - 10;
 
-    // display counter 
-    let counter = display(currentHours, currentMintues, currentSeconds);
-    document.querySelector("#display").textContent = counter;
+    // Call display function 
+     display(currentHours, currentMintues, currentSeconds);
 }
+
 
 
 // Displaying function
@@ -170,8 +179,15 @@ function display(hours, minutes, seconds) {
         display = display + seconds;
     }
 
-    return display;
+    // Update the counter
+    document.querySelector("#display").textContent = display;
+    if (currentMilliseconds < 10) {
+        document.querySelector("#milli-seconds").textContent = "0" + currentMilliseconds;
+    } else {
+        document.querySelector("#milli-seconds").textContent = currentMilliseconds;
+    }
 }
+
 
 
 // Clear function
@@ -183,6 +199,7 @@ function clear(){
     currentHours = null;
     currentMintues = null;
     currentSeconds = null;
+    currentMilliseconds = null;
     stopper = null;
     document.getElementById('hours').value = "";
     document.getElementById('minutes').value = "";
@@ -190,7 +207,7 @@ function clear(){
     document.querySelector("#start").textContent = "Start";
     document.querySelector("#start").style.background = "rgba(47, 255, 75, 0.8)";
     document.getElementById('display').textContent = "00:00:00";
+    document.getElementById('milli-seconds').textContent = "00";
+
     return;
 }
-
-
