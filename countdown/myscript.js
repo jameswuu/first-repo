@@ -150,7 +150,7 @@ function counter(){
     }    
 
     // Update milli-seconds
-    currentMilliseconds = currentMilliseconds - 1;
+    currentMilliseconds--;
 
     // Call display function 
     let showCounter = display(currentHours, currentMintues, currentSeconds);
