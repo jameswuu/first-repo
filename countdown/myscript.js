@@ -72,8 +72,13 @@ startPauseButton.addEventListener('click', () => {
     if (stopper) {
         clearInterval(stopper);
         stopper = null;
+        document.querySelector("#start").textContent = "Start";
+        document.querySelector("#start").style.background = "rgba(47, 255, 75, 0.8)";
     } else {
         stopper = setInterval(counter, 1000); // Start the countdown
+        document.querySelector("#start").textContent = "Pause";
+        document.querySelector("#start").style.background = "rgba(255, 31, 31, 0.8)";
+
     }
 });
 
@@ -85,6 +90,8 @@ resetButton.addEventListener("click", () => {
      if (currentHours || currentMintues || currentSeconds) {
         clearInterval(stopper);
         stopper = null;
+        document.querySelector("#start").textContent = "Start";
+        document.querySelector("#start").style.background = "rgba(47, 255, 75, 0.8)";
         currentHours = originalHours;
         currentMintues = originalMinutes;
         currentSeconds = originalSeconds;
@@ -180,6 +187,8 @@ function clear(){
     document.getElementById('hours').value = "";
     document.getElementById('minutes').value = "";
     document.getElementById('seconds').value = "";
+    document.querySelector("#start").textContent = "Start";
+    document.querySelector("#start").style.background = "rgba(47, 255, 75, 0.8)";
     document.getElementById('display').textContent = "00:00:00";
     return;
 }

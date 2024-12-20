@@ -32,9 +32,14 @@ body {
     margin: 10px;
 }
 
+.content .right #start {
+    background-color: rgba(47, 255, 75, 0.8);
+}
+
 .content .right button {
     margin: 8px;
     padding: 5px 10px;
+    width: 90px;
     font-size: 15px; 
     border-radius: 5px;
     cursor: pointer; 
