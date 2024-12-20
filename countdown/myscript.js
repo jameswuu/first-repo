@@ -1,7 +1,10 @@
+////////////////////////////////////////////////////////////////////////////////////////
+// 
 // Using JS and HTML, write a countdown timer with the ability to set 
 // custom countdown duration, pause / resume the timer, and reset the timer
 // Bonus: track and display previous results and the timestamp the record was made
-
+// 
+////////////////////////////////////////////////////////////////////////////////////////
 
 // Initailize values
 let originalHours;
@@ -21,11 +24,10 @@ startPauseButton.addEventListener('click', () => {
     // To check whether the counter is null
     if (!originalSeconds || !originalMinutes || !originalHours) {
         // Assign values
-        originalHours = parseInt(document.querySelector("#hours").value)
+        originalHours = parseInt(document.querySelector("#hours").value);
         originalMinutes = parseInt(document.querySelector("#minutes").value);
         originalSeconds = parseInt(document.querySelector("#seconds").value);
-        
-        // Validate the inputs
+
         if (isNaN(originalHours) || isNaN(originalMinutes) || isNaN(originalSeconds)) {
             alert("Please fill in all the boxes with valid numbers.");
             clear();
