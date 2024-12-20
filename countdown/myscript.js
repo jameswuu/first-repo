@@ -5,7 +5,7 @@
 
 
 // Initailize values
-let originalHours
+let originalHours;
 let originalMinutes;
 let originalSeconds;
 let currentHours;
@@ -15,20 +15,10 @@ let previousRow;
 let stopper;
 
 
-// Reset button
-const resetButton = document.querySelector("#reset");
+// Clear button
+const resetButton = document.querySelector("#clear");
 resetButton.addEventListener('click', () => {
-    clearInterval(stopper);
-    originalHours = null;
-    originalMinutes = null;
-    originalSeconds = null;
-    currentHours = null;
-    currentMintues = null;
-    currentSeconds = null;
-    document.getElementById('display').textContent = "00:00:00";
-    
-    // Reset the start pause button
-    stopper = null;
+    clear();
 })
 
 
@@ -36,11 +26,29 @@ resetButton.addEventListener('click', () => {
 const startPauseButton = document.querySelector("#start");
 startPauseButton.addEventListener('click', () => {
     // To check whether the counter is null
-    if (!originalSeconds && !originalMinutes && !originalHours) {
+    if (!originalSeconds || !originalMinutes || !originalHours) {
         // Assign values
         originalHours = parseInt(document.querySelector("#hours").value)
         originalMinutes = parseInt(document.querySelector("#minutes").value);
         originalSeconds = parseInt(document.querySelector("#seconds").value);
+        
+        // Debugging Line
+        console.log(`Hours = ${currentHours}; Minutes = ${currentMintues}; Seconds = ${currentSeconds}`)
+
+        // Validate the inputs
+        if (isNaN(originalHours) || isNaN(originalMinutes) || isNaN(originalSeconds)) {
+            alert("Please fill in all the boxes with valid numbers.");
+            clear();
+            return;
+        } else if (originalHours > 99 || originalMinutes > 99 || originalSeconds > 99) {
+            alert("Please enter a number smaller than 99.");
+            clear();
+            return;
+        } else if (originalHours < 0 || originalMinutes < 0 || originalSeconds < 0) {
+            alert("Please enter a number greater than 0.");
+            clear();
+            return;
+        }
 
         // Append to the records
         const table = document.getElementById("timestamp");
@@ -64,9 +72,6 @@ startPauseButton.addEventListener('click', () => {
         currentHours = originalHours;
         currentMintues = originalMinutes;
         currentSeconds = originalSeconds;
-
-        // Debugging Line
-        console.log(`Hours = ${currentHours}; Minutes = ${currentMintues}; Seconds = ${currentSeconds}`)
 
         // display counter 
         let counter = display(currentHours, currentMintues, currentSeconds);
@@ -141,4 +146,17 @@ function display(hours, minutes, seconds) {
     }
 
     return display;
+}
+
+function clear(){
+    clearInterval(stopper);
+    originalHours = null;
+    originalMinutes = null;
+    originalSeconds = null;
+    currentHours = null;
+    currentMintues = null;
+    currentSeconds = null;
+    document.getElementById('display').textContent = "00:00:00";
+    stopper = null;
+    return;
 }
