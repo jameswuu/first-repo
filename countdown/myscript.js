@@ -76,7 +76,7 @@ startPauseButton.addEventListener('click', () => {
         document.querySelector("#start").textContent = "Start";
         document.querySelector("#start").style.background = "rgba(47, 255, 75, 0.8)";
     } else {
-        stopper = setInterval(counter, 100); // Start the countdown
+        stopper = setInterval(counter, 10); // Start the countdown
         document.querySelector("#start").textContent = "Pause";
         document.querySelector("#start").style.background = "rgba(255, 31, 31, 0.8)";
     }
@@ -146,7 +146,7 @@ function counter(){
     }    
 
     // Update milli-seconds
-    currentMilliseconds = currentMilliseconds - 10;
+    currentMilliseconds = currentMilliseconds - 1;
 
     // Call display function 
      display(currentHours, currentMintues, currentSeconds);
@@ -208,6 +208,5 @@ function clear(){
     document.querySelector("#start").style.background = "rgba(47, 255, 75, 0.8)";
     document.getElementById('display').textContent = "00:00:00";
     document.getElementById('milli-seconds').textContent = "00";
-
     return;
 }
