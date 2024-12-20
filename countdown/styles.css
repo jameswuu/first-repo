@@ -2,6 +2,7 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     background-color: #f8f9fa;
@@ -9,7 +10,6 @@ body {
 }
 
 .content {
-    margin: 30px 0; 
     display: flex;
     justify-content: center;
     align-items: center;

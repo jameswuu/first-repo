@@ -25,7 +25,7 @@ resetButton.addEventListener('click', () => {
     currentHours = null;
     currentMintues = null;
     currentSeconds = null;
-    document.getElementById('display').textContent = "counter";
+    document.getElementById('display').textContent = "00:00:00";
     
     // Reset the start pause button
     stopper = null;
