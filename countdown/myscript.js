@@ -67,7 +67,8 @@ startPauseButton.addEventListener('click', () => {
         console.log(`Hours = ${currentHours}; Minutes = ${currentMintues}; Seconds = ${currentSeconds}; MilliSeconds = ${currentMilliseconds}`)
 
         // Call display function 
-        display(currentHours, currentMintues, currentSeconds);
+        let showCounter = display(currentHours, currentMintues, currentSeconds);
+        update(showCounter);
     } 
 
     if (stopper) {
@@ -99,7 +100,8 @@ resetButton.addEventListener("click", () => {
         currentMilliseconds = 0;
     
         // Call display function 
-        display(currentHours, currentMintues, currentSeconds);
+        let showCounter = display(currentHours, currentMintues, currentSeconds);
+        update(showCounter);
      } else {
         return;
      }
@@ -149,9 +151,9 @@ function counter(){
     currentMilliseconds = currentMilliseconds - 1;
 
     // Call display function 
-     display(currentHours, currentMintues, currentSeconds);
+    let showCounter = display(currentHours, currentMintues, currentSeconds);
+    update(showCounter);
 }
-
 
 
 // Displaying function
@@ -178,7 +180,13 @@ function display(hours, minutes, seconds) {
     } else {
         display = display + seconds;
     }
+    return display;
+}
 
+
+
+// Update counter
+function update(display) {
     // Update the counter
     document.querySelector("#display").textContent = display;
     if (currentMilliseconds < 10) {
