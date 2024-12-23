@@ -1,23 +1,22 @@
 import { Header } from "./components/Header"
 import { Tabs } from "./components/Tabs"
-import { TodoCard } from "./components/TodoCard"
 import { TodoInput } from "./components/TodoInput"
+import { TodoList } from "./components/TodoList"
 
 function App() {
   const todos = [
     { input: 'Eat breakfast', complete: true },
-    { input: 'Get Groceries', complete: false },
+    { input: 'Go to library', complete: true },
     { input: 'Learn how to wrtie react', complete: false },
-    { input: 'Pick up Donald', complete: false },
-
+    { input: 'Pick up Donald', complete: true },
   ]
 
   return (
     <>
       <Header todos={todos}/>
-      <Tabs />
-      <TodoCard />
-      <TodoInput />
+      <Tabs todos={todos}/>
+      <TodoInput todos={todos}/>
+      <TodoList todos={todos} />
     </>
   )
 }

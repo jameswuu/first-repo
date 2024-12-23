@@ -1,12 +1,19 @@
-export function Tabs() {
-    const tabs = ['all', 'Open', 'Completed']
+export function Tabs(props) {
+    const { todos } = props
+    const tabs = ['All', 'Open', 'Completed']
     return (
-        <nav>
-            {/* Using Maps() to display the button three times */}
+        // Using Map to display the button three times
+        <nav className="tab-container">
             {tabs.map((tab, tabIndex) => {
+                const numOfTasks = tab === "All" ?
+                    todos.length : 
+                    tab === "Open" ?
+                        todos.filter(val => !val.complete).length :
+                        todos.filter(val => val.complete).length
+
                 return (
-                    <button value={tabIndex} className="tab-button">
-                        <h4>{tab} (0)</h4>
+                    <button key={tabIndex} value={tabIndex} className="tab-button">
+                        <h4>{tab} ({numOfTasks})</h4>
                     </button>
                 )
             })}
