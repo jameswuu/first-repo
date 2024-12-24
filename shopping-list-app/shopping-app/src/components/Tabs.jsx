@@ -17,6 +17,6 @@ export function Tabs(props) {
                 )
             })}
             <hr />
-        </nav>    
+        </nav> 
     )
 }

@@ -5,7 +5,7 @@ import { ShoppingInput } from "./components/ShoppingInput"
 
 function App() {
   const tobuy = [
-    {item: "Orange", purcahsed: false},
+    {item: "Orange", purchased: false},
     {item: "Apples", purchased: false},
     {item: "Kiwi", purchased: false},
     {item: "Bread", purchased: true},
@@ -16,7 +16,7 @@ function App() {
     <>
       <Header tobuy={tobuy} />
       <Tabs tobuy={tobuy} />
-      <ShoppingList />
+      <ShoppingList tobuys={tobuy}/>
       <ShoppingInput />
     </>
   )

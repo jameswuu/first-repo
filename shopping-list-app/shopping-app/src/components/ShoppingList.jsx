@@ -1,7 +1,25 @@
-export function ShoppingList() {
+import { ShoppingCards } from "./ShoppingCards"
+
+export function ShoppingList(props) {
+    const { tobuys } = props
+
+    const tab = "Brought"
+
+    const filterTobuyList = tab === "All" ? tobuys :
+        tab === "Brought" ? 
+            tobuys.filter(val => val.purchased):
+            tobuys.filter(val => !val.purchased)
+
     return(
         <>
-            <div>This is a shopping list</div>
+            {filterTobuyList.map((tobuy, index)=>{
+                return(
+                    <ShoppingCards 
+                        key={tobuy.id || index}
+                        tobuyIndex={index} 
+                        tobuy={tobuy}/>
+                )
+            })}
         </>
     )
 }
