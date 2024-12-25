@@ -6,15 +6,11 @@ export function ShoppingCards(props) {
                 <p>{tobuy.item}</p>
                 <div className="tobuy-buttons">
                     <button 
-                    onClick={()=>{
-                        handleEditTobuy(tobuyIndex)
-                    }}
+                    onClick={()=>{handleEditTobuy(tobuyIndex)}}
                     disabled={tobuy.purchased}>
                         <h6>Brought</h6>
                     </button>
-                    <button onClick={()=>{
-                        handleDeleteTobuy(tobuyIndex)
-                    }}>
+                    <button onClick={()=>{handleDeleteTobuy(tobuyIndex)}}>
                         <h6>Delete</h6>
                     </button>
                 </div>

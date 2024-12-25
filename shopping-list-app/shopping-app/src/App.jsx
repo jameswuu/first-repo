@@ -22,14 +22,19 @@ function App() {
   const [selectedTab, setSelectedTab] = useState("All")
 
   function handleAddTobuy(input){
-    const newTobuyList = [...tobuy, {item: input, purchased: false}]
+    let newTobuyList = [...tobuy, {item: input, purchased: false}]
     setTobuy(newTobuyList)
   }
   
   function handleEditTobuy(index){
-    const editList = tobuy
-    editList[index].purcahsed = true // Update the status
-    setTobuy(editList) // Reassign the list 
+    // Get the list's index
+    let newTobuyList = [...tobuy]
+    let editTobuy = newTobuyList[index]
+
+    // Update and replace the list
+    editTobuy["purchased"] = true
+    newTobuyList[index] = editTobuy
+    setTobuy(newTobuyList)
   }
   
   function handleDeleteTobuy(index){
@@ -44,11 +49,11 @@ function App() {
     <>
       <Header tobuy={tobuy} />
       <Tabs tobuy={tobuy} selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-      <ShoppingList tobuys={tobuy}
-        selectedTab={selectedTab}
-        handleEditTobuy={handleEditTobuy} 
-        handleDeleteTobuy={handleDeleteTobuy}/>
       <ShoppingInput handleAddTobuy={handleAddTobuy} />
+      <ShoppingList tobuys={tobuy}
+                    selectedTab={selectedTab}
+                    handleEditTobuy={handleEditTobuy} 
+                    handleDeleteTobuy={handleDeleteTobuy}/>
     </>
   )
 }

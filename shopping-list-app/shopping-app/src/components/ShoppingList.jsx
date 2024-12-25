@@ -12,13 +12,13 @@ export function ShoppingList(props) {
 
     return(
         <>
-            {filterTobuyList.map((tobuy, index)=>{
+            {filterTobuyList.map((tobuy, tobuyIndex)=>{
                 return(
                     <ShoppingCards 
-                        key={tobuy.id || index}
-                        tobuyIndex={index} 
+                        key={tobuyIndex}
+                        tobuyIndex={tobuys.findIndex(val => val.input === tobuy.input)} 
                         tobuy={tobuy}
-                        {...props}/>
+                        {... props}/>
                 )
             })}
         </>
