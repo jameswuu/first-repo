@@ -1,9 +1,9 @@
 import { ShoppingCards } from "./ShoppingCards"
 
 export function ShoppingList(props) {
-    const { tobuys } = props
+    const { tobuys, selectedTab } = props
 
-    const tab = "Brought"
+    const tab = selectedTab
 
     const filterTobuyList = tab === "All" ? tobuys :
         tab === "Brought" ? 
@@ -17,7 +17,8 @@ export function ShoppingList(props) {
                     <ShoppingCards 
                         key={tobuy.id || index}
                         tobuyIndex={index} 
-                        tobuy={tobuy}/>
+                        tobuy={tobuy}
+                        {...props}/>
                 )
             })}
         </>

@@ -1,5 +1,5 @@
 export function Tabs(props) {
-    const { tobuy } = props
+    const { tobuy, selectedTab, setSelectedTab } = props
     const tabs = ["All", "Brought", "Not Brought"]
 
     return (
@@ -11,9 +11,13 @@ export function Tabs(props) {
                         tobuy.filter(val => val.purchased).length :
                         tobuy.filter(val => !val.purchased).length
                 return(
-                    <button className="tab-button" key={tabIndex}>
+                    <button onClick={()=>{setSelectedTab(tab)}}
+                    className={"tab-button" + (tab === selectedTab ? 'tab-selected' : '')}
+                    key={tabIndex}
+                    value={tabIndex}>
                         <h4>{tab} ({numOfItems})</h4>
                     </button>
+                    
                 )
             })}
             <hr />
