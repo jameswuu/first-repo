@@ -5,17 +5,13 @@ import { ShoppingInput } from "./components/ShoppingInput"
 import { useState } from 'react';
 
 function App() {
-  // const tobuy = [
-  //   {item: "Orange", purchased: false},
-  //   {item: "Apples", purchased: false},
-  //   {item: "Kiwi", purchased: false},
-  //   {item: "Bread", purchased: true},
-  //   {item: "Eggs", purchased: true}
-  // ]
-
   const [tobuy, setTobuy] = useState(
     [
-      {item: "Orange", purchased: false}
+      {item: "Eggs", purchased: true},
+      {item: "Orange", purchased: false},
+      {item: "Apples", purchased: false},
+      {item: "Kiwi", purchased: false},
+      {item: "Bread", purchased: false},
     ]
   );
 
@@ -38,7 +34,6 @@ function App() {
   }
   
   function handleDeleteTobuy(index){
-    ///////////(val, valIndex) <=== Why is the second one is index? and Why dont we use val.value
     let newTobuyList = tobuy.filter((val, valIndex)=> {
       return(valIndex !== index)
     })
