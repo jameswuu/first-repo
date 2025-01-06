@@ -2,17 +2,12 @@ import { useEffect, useState } from "react"
 import { getFullPokedexNumber, getPokedexNumber } from '../utils'
 import TypeCard from './TypeCard'
 import Modal from "./Modal";
-import { use } from "react";
 
 export default function PokeCard(props){
     const { selectedPokemon } = props;
 
     const test1 = {value: 1}
     const test2 = {value: 1}
-
-
-
-
     
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
