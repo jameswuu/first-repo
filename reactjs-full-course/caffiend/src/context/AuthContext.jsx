@@ -1,5 +1,5 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth'
-import { useState, useEffect, useContext} from 'react'
+import { createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { useState, useEffect, useContext, createContext } from 'react'
 import { auth, db } from '../../firebase'
 import { doc, getDoc } from 'firebase/firestore'
 
@@ -9,7 +9,7 @@ export function useAuth() {
     return useContext(AuthContext)
 }
 
-export function AuthProvide(props){
+export function AuthProvider(props){
     const { children } = props
     const [globalUser, setGlobalUser] = useState(null)
     const [globalData, setGlobalData] = useState(null)
@@ -23,8 +23,8 @@ export function AuthProvide(props){
         return signInWithEmailAndPassword(auth, email, password)
     }
 
-    function logout(email, password){
-        setUser(null)
+    function logout(){
+        setGlobalUser(null)
         setGlobalData(null)
         return signOut(auth)    
     }
@@ -35,31 +35,36 @@ export function AuthProvide(props){
 
     const value = { globalUser, globalData, setGlobalData, isLoading, signup, login, logout }
 
-    useEffect(()=>{
-        const unsubscribe =  onAuthStateChanged(auth, async(user)=>{ 
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, async(user)=>{ 
+            console.log('CURRENT USER:', user)
+            setGlobalUser(user)
             // If there's no user, empty the user state and return from this listener
-            if(!user) { return }
+            if(!user) { 
+                console.log("No active user")
+                return
+             }
 
             // If there is a user, then check if the user has data in the database, then fetch said data and update the global state
-            try{
+        try {
                 setIsLoading(true)
-
-                const docRef = doc(db, 'users', user.uid) //Fetch user data
+                // first we create a reference for the document (labelled json object), and then we get the doc, and then we snapshot it to see if there's anything there
+                const docRef = doc(db, 'users', user.uid)
                 const docSnap = await getDoc(docRef)
 
                 let firebaseData = {}
                 if (docSnap.exists()) {
-                    console.log('Found user data')
-                    firebaseData = docRef.data()
+                    firebaseData = docSnap.data()
+                    console.log('Found user data', firebaseData)
                 }
                 setGlobalData(firebaseData)
-            } catch(err){
+            } catch (err) {
                 console.log(err.message)
             } finally {
                 setIsLoading(false)
             }
-         })
-        return unsubscribe 
+        })
+        return unsubscribe
     }, [])
 
 

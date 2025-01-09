@@ -2,6 +2,9 @@ import { coffeeOptions } from "../utils"
 import { useState } from "react"
 import Modal from "./Modal"
 import Authentication from "./Authentication"
+import { useAuth } from "../context/AuthContext"
+import { db } from "../../firebase"
+import { doc, setDoc } from "firebase/firestore"
 
 export default function CoffeeForm(props){
     const {isAuthenticated} = props
@@ -13,26 +16,70 @@ export default function CoffeeForm(props){
     const [hour, setHour] = useState(0)
     const [min, setMin] = useState(0)
 
-    function handleSubmitForm(){
+    const { globalData, setGlobalData, globalUser } = useAuth()
+
+    async function handleSubmitForm(){
         if(!isAuthenticated){
             setShowModal(true)
             return
         }
-        console.log(selectedCoffee, coffeeCost, hour, min)
+
+        // define a guard clause only submits the form if it is completed
+        if (!selectedCoffee) {
+            return
+        }
+
+        try{
+            // then we are going to create a new data object
+            const newGlobalData = {
+                ...(globalData || {}) // Shallow copy 
+            }
+
+            const nowTime = Date.now()
+            const timeToSubtract = (hour * 60 * 60 * 1000) + (min * 60 * 100)
+            const timestamp = nowTime - timeToSubtract
+
+            const newData = {
+                name: selectedCoffee,
+                cost: coffeeCost
+            }
+
+            newGlobalData[timestamp] = newData
+            console.log(timestamp, selectedCoffee, coffeeCost)
+
+            // updatet the global state
+            setGlobalData(newGlobalData)
+
+            // persist the data in the firebase firestore 
+            const userRef = doc(db, 'users', globalUser.uid)
+            const res = await setDoc(userRef, {
+                [timestamp]: newData
+            }, { merge: true }) // merge with existing db
+
+            setSelectedCoffee(null)
+            setHour(0)
+            setMin(0)
+            setCoffeeCost(0)
+        } catch (err){
+            console.log(err.message)
+        }
+    }
+
+    function handleCloseModal(){
+        setShowModal(false)
     }
 
     return(
         <>
         {showModal && (
-            <Modal handleCloseModal={()=>{setShowModal(false)}}>
-                <Authentication />
+            <Modal handleCloseModal={handleCloseModal}>
+                <Authentication handleCloseModal={handleCloseModal}/>
             </Modal>
         )}
             <div className="section-header">
                 <i className="fa-solid fa-pencil" />
                 <h2>Start Tracking Today</h2>
             </div>
-
             <h4>Select Coffee type</h4>
             <div className="coffee-grid">
                 {coffeeOptions.slice(0,5).map((option, optionIndex)=>{

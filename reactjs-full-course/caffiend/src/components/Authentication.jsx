@@ -1,13 +1,40 @@
-import { use } from "react"
 import { useState } from "react"
+import { useAuth } from "../context/AuthContext"
 
-export default function Authentication(){
+export default function Authentication(props){
+    const { handleCloseModal } = props
     const [isRegistration, setIsRegistration] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isAuthenticating, setIsAuthenticating] = useState(false)
+    const [error, setError] = useState(null)
+
+    const {signup, login} = useAuth()
 
     async function handleAuthenticate() {
+        if (!email || !email.includes('@') || !password || 
+            password.length < 6 || isAuthenticating){
+            return
+        }
+        
+        try{
+            setIsAuthenticating(true)
+            setError(null)
+            if (isRegistration){ 
+                // Register the user
+                await signup(email, password)
+            } else {
+                // Login a user
+                await login(email, password)
+            }
+            handleCloseModal()
+        } catch(err) {
+            console.log(err.message)
+            setError(err.message)
+        } finally {
+            setIsAuthenticating(false)
+        }
+
 
     }
 
@@ -17,9 +44,14 @@ export default function Authentication(){
                 { isRegistration ? 'Sign Up' : 'Login'}
             </h2>
             <p>{isRegistration ? "Create an account!" : "Sign in your account!"}</p>
+            {error && (
+                <p>❌ {error}</p>
+            )}
             <input value={email} onChange={(e)=>{setEmail(e.target.value)}} placeholder="Email" />
             <input value={password} onChange={(e)=>{setPassword(e.target.value)}} placeholder="******" type="password"/>
-            <button onClick={handleAuthenticate}><p>Submit</p></button>
+            <button onClick={handleAuthenticate}>
+                <p>{isAuthenticating ? 'Authenticating...' : 'Submit'}</p>
+            </button>
             <hr />
 
             <div className="register-content">
