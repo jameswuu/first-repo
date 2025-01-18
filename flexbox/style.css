@@ -1,0 +1,87 @@
+body{
+    min-height: 100vh;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 0 1.5em;
+}
+
+header{
+    text-align: center;
+    background-color: #2563eb;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index: 1000;
+}
+
+footer{
+    text-align: center;
+    background-color: #2563eb;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index: 1000;
+}
+
+
+main {
+    flex: 1;
+    margin-top: 90px;
+    margin-bottom: 90px;
+    background-color: aliceblue; /* Example background */
+    color: black;
+
+    /* Container's properties */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 1em;
+}
+
+.container {
+    /* Ensure the content is center inside the container */
+    display: flex;
+    align-items: center;
+
+    /* container's Style */
+    border: 2px red solid;
+    color: black;
+    background-color: cadetblue;
+
+    /* Container's responsive boxing */
+    /* flex: 1 1 150px;
+    max-width: 150px;
+    min-height: 100px; */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+.container>:first-child{
+    flex-shrink: 0;
+}
+
+.container>:last-child{
+    margin-left: auto;
+}
+
+.container * {
+    /* container's Style */
+    border: 2px blue solid;
+    padding: 1em
+}
+
+@media (max-width: 700px) {
+    .container {
+        flex-direction: column; /* Stack containers vertically */
+    }
+    .container>:last-child{
+        margin-left: 0;
+    }
+}
