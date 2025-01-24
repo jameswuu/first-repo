@@ -1,13 +1,15 @@
 body{
+    font-family: "Poppins", sans-serif;
+    margin: 25px 25px 25px 50px;
+    background-color: #faf9f6;
     display: flex;
     flex-direction: column;
-    min-width: 100%;
-    margin:0;
-    padding:0;
+    min-height: 95vh;
 }
 
 header{
     background-color:antiquewhite;
+    border-radius: 16px;
 }
 
 li{
@@ -40,30 +42,12 @@ a {
     gap: 30px;
 }
 
-
-
 .nav-link{
     transition: color 0.2s ease-in;
 }
 
 .nav-link:hover{
     color: dodgerblue;
-}
-
-
-button {
-    background-color: white;
-    border-radius: 6px 6px;
-    padding: 4px 18px;
-    border: 1px gainsboro solid;
-    cursor: pointer;
-    font-size: 13px;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-button:hover {
-    background-color: rgba(255, 251, 245, 0.4);
-    transform: translateY(-2px);
 }
 
 
@@ -83,7 +67,8 @@ button:hover {
     background-color: black;
 }
 
-@media (max-width: 768px) {
+/* Hamberger Section */
+@media (max-width: 1024px) {
     .hamburger {
         display: block; /* Show the hamburger menu */
     }
@@ -105,7 +90,8 @@ button:hover {
         gap:0;
         flex-direction: column;
         background-color: antiquewhite;
-        width: 100%;
+        border-radius: 20px;
+        width: 92%;
         text-align: center;
         transition: 0.5s;
     }
@@ -115,6 +101,146 @@ button:hover {
     }
 
     .nav-menu.active{
-        left: -5%;
+        left: 5.3%;
     }
 }
+
+
+
+/* MAIN SECTION */
+.main {
+    flex-grow: 1;
+    margin: 0 40px;
+}
+  
+.main > h1{
+    font-size: 4em;
+}
+  
+.main > h1 > span {
+    color: rgb(255, 140, 0);
+}
+  
+.container{
+    display: flex;
+    justify-content: space-around;
+    gap: 2em;
+    margin: 0 40px;
+}
+  
+.container-item{
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.tile-image{
+    width: 100%;   /* Makes the image responsive */
+    min-width: 125px;
+}
+
+h1 {
+    font-size: 5rem;
+}
+
+
+
+/* Footer */
+footer {
+    text-align: center;
+    background-color:antiquewhite;
+    border-radius: 16px;
+    color: midnightblue;
+}
+
+footer > p {
+    color: black;
+    font-weight: 500;
+}
+  
+footer > p > a{
+    display: inline-block;
+    transition: color 0.2s ease-in, transform 0.2s ease-in;
+}
+
+footer > p > a:hover{
+    color: rgb(255, 140, 0);
+    transform: translateY(-3px);
+}
+
+@media (max-width: 1024px){
+    .container{
+      flex-direction: column;
+      gap: 1em;
+    }
+  
+    .main > h1{
+      font-size: 3em;
+    }
+}
+
+
+
+/* Pricing Secction */
+.pricing-container{
+    padding: 4em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:1.5rem;
+    margin: 20px 0;
+  }
+
+  .pricing-plan{
+    padding: 1rem;
+    text-align: center;
+    background-color: rgba(187, 187, 187,0.2);
+    border-radius: 8px 8px;
+    flex: 1;
+    min-width: 250px;
+
+  }
+
+  .plan-title{
+    font-weight: bold;
+  }
+
+  ul, li{
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .plan-price{
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+
+  ul > li {
+    margin-bottom: 0.5em;
+  }
+  
+  button{
+    border: none;
+    background-color: rgb(255, 140, 0);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in, transform 0.2s ease-in;
+  }
+
+  button:hover{
+    background: rgb(255, 140, 0, 0.7);
+    transform:translateY(-3px);
+  }
+
+
+@media (max-width: 1024px) {
+    .pricing-container{
+        flex-direction: column;
+    }
+}
+
+
