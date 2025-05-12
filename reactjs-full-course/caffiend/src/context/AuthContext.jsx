@@ -30,7 +30,7 @@ export function AuthProvider(props){
     }
 
     function resetPassword(email){
-        return sendPasswordResetEmail(auth, email)
+        return sendPasswordResetEmail(auth, email) // Reset Password
     }
 
     const value = { globalUser, globalData, setGlobalData, isLoading, signup, login, logout }
